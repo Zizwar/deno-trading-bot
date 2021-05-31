@@ -4,4 +4,7 @@ deno trading bot
 
 https://ibrahim.contact
 
+#run
+deno run --allow-net --allow-env --allow-read 
+
 
