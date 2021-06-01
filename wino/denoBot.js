@@ -1,44 +1,37 @@
 import { Binance, Technicalindicators } from '../deps.js';
+import { OnlyRsis } from './stratigy/index.js'
 //console.info(await Binance.futuresCandles({ symbol: 'BTCUSDT' }));
 const { SMA, EMA, BollingerBands, RSI, StochasticRSI } = Technicalindicators;
 
 export default class DenoBot {
     constructor() {
+        this._stratigy = "onlyRsis"
         this.binance = Binance;
     }
     get ping() {
         return this.binance.time()
     }
     futuresCandles(args = []) {
-        const { symbol = "DOGEUSDT", interval = '1m', limit = 30 } = args
+        const { symbol = "BTCUSDT", interval = '1m', limit = 30 } = args
         return this.binance.futuresCandles({ symbol, interval, limit })
     }
+
     async listenCoins(args = []) {
+        const { candeles: optionCandeles = [], indicator = [] } = args;
         try {
-            const candles = await this.futuresCandles(args)
-            console.log({candles})
-            /*
-                    const [, , , , lastClose, , , , , ,] = candles[candles.length - 1];
-                    const r = RSI.calculate({
-                        period: 20, values: [34414.84, 34286.9, 34582.3,
-                            34547.98, 34650.08, 34531.82,
-                            34468.14, 34402.92, 34290.83,
-                            34535.69, 34391.43, 34559.64,
-                            34432.38, 34465.46, 34382.21,
-                            34264.05, 34467.84, 34258.58,
-                            34343.08, 34384.99, 34519.9,]
-                    });
-                    console.info({ r, lastClose })
-                    return;
-                    */
+            const candles = await this.futuresCandles(optionCandeles);
             const closesPrice = candles.map(({ close }) => +close)
             //console.log({closesPrice})
+            const { rsi = [], sma = [], ema = [], bb = [] } = indicator;
+            const { period: rsiPeriod = 5 } = rsi;
+            const { period: smaPeriod = 5 } = sma;
+            const { period: emaPeriod = 5 } = ema;
+            const { period: bbPeriod = 5, stdDev: bbStdDev = 3 } = bb;
 
-            const RS = RSI.calculate({ period: 5, values: closesPrice });//RSI({ period: 99, values: closesPrice })
-            const SM = SMA.calculate({ period: 5, values: closesPrice });
-            const EM = EMA.calculate({ period: 5, values: closesPrice });
-            const BB = BollingerBands.calculate({ period: 5, stdDev: 3, values: closesPrice });
-            // const BB = Boll(closesPrice, 5, 2)
+            const RS = RSI.calculate({ period: rsiPeriod, values: closesPrice });
+            const SM = SMA.calculate({ period: smaPeriod, values: closesPrice });
+            const EM = EMA.calculate({ period: emaPeriod, values: closesPrice });
+            const BB = BollingerBands.calculate({ period: bbPeriod, stdDev: bbStdDev, values: closesPrice });
 
             const inputStochRSI = {
                 values: closesPrice,
@@ -55,8 +48,8 @@ export default class DenoBot {
             console.info(lowerAndUpperPriceBB)
             const [{ upper = NaN, lower = NaN }] = lowerAndUpperPriceBB;
             const { stochRSI } = lastArr(_stochRSI) || NaN;
-            const { symbol } = args;
-            const resault = ({
+            const { symbol } = optionCandeles;
+            const properties = ({
                 symbol,
                 rsi: lastArr(RS),
                 stochRSI,
@@ -64,14 +57,41 @@ export default class DenoBot {
                 ema: lastArr(EM),
                 upper,
                 lower,
-                close: lastArr(closesPrice)
+                close: lastArr(closesPrice),
+                stratigy: this._stratigy
             })
+            return properties;
             //console.info(resault)
-            return resault
+            /*
+                        switch (this._stratigy) {
+                            case "onlyRsis": return OnlyRsis(properties);
+                                break;
+                            case "9mr": return OnlyRsis(properties);
+                                break;
+                            default: return OnlyRsis(properties);
+                                break;
+                        }
+            */
             //console.info( await binance.futuresMarketBuy( 'BTCUSDT', 0.001 ) );
         }
         catch (error) {
             console.error("ERR:", error)
+        }
+    }
+    set stratigy(stratigy) {
+        this._stratigy = stratigy
+    }
+    get stratigy() {
+        return this._stratigy
+    }
+    action(properties) {
+        switch (this._stratigy) {
+            case "onlyRsis": return OnlyRsis(properties);
+                break;
+            case "9mr": return OnlyRsis(properties);
+                break;
+            default: return OnlyRsis(properties);
+                break;
         }
     }
 }
