@@ -2,9 +2,10 @@
 # deno-trad-bot
 deno trading bot
 
-https://ibrahim.contact
 
-#run
+
+# run
 deno run --allow-net --allow-env --allow-read 
 
 
+https://ibrahim.contact
