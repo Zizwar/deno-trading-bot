@@ -9,6 +9,7 @@ setInterval(async _ => {
     }
     const listenMyCoins = await denoBot.listenCoins(options);
     const action = denoBot.action(listenMyCoins);
+    denoBot.postMessageSlacK(action)
     console.log({ action, ...listenMyCoins })
 }, 7000)
 
