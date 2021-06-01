@@ -33,14 +33,14 @@ export default class DenoBot {
                     console.info({ r, lastClose })
                     return;
                     */
-            const closesPrice = candles.map(({ close }) => close)
-            //   console.log({closesPrice})
+            const closesPrice = candles.map(({ close }) =>  parseFloat(+closes).toFixed(5))
+            console.log({closesPrice})
 
             const RS = RSI.calculate({ period: 5, values: closesPrice });//RSI({ period: 99, values: closesPrice })
             const SM = SMA.calculate({ period: 5, values: closesPrice });
             const EM = EMA.calculate({ period: 5, values: closesPrice });
             // const BB = BollingerBands.calculate({ period: 30, stdDev: 3, values: closesPrice });
-            const BB = Boll(closesPrice, 30, 2)
+            const BB = Boll(closesPrice, 5, 2)
            
             const inputStochRSI = {
                 values: closesPrice,
