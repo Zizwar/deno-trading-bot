@@ -5,7 +5,7 @@ deno trading bot
 
 
 # run
-deno run --allow-net --allow-env --allow-read 
+deno run --allow-net --allow-env --allow-read app.js
 
 
 https://ibrahim.contact

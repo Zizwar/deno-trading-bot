@@ -3,7 +3,7 @@ export const ENV = config();
 import binanceApi from 'https://esm.sh/binance-api-node';
 //
 export * as Technicalindicators from 'https://esm.sh/technicalindicators';
-import Boll from 'https://esm.sh/bollinger-bands'
+
 
 
 
@@ -14,5 +14,5 @@ const Binance = binanceApi({
     apiSecret: APISECRET,
 
 })
-export { Boll, Binance }
+export { Binance }
 

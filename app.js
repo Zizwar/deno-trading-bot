@@ -1,7 +1,14 @@
-import DenoBot  from './wino/denoBot.js';
+import DenoBot from './wino/denoBot.js';
 
 const denoBot = new DenoBot();
 const ping = await denoBot.ping;
-const coins = await denoBot.listenCoins()
-console.log({ping},{coins})
+denoBot.stratigy = "onlyRsis"
+setInterval(async _ => {
+    const options = {
+        candeles: { symbol: "DOGEUSDT" }
+    }
+    const listenMyCoins = await denoBot.listenCoins(options);
+    const action = denoBot.action(listenMyCoins);
+    console.log({ action, ...listenMyCoins })
+}, 7000)
 
