@@ -1,7 +1,7 @@
 import { BinanceApi, Technicalindicators, SlackApi, ENV } from '../deps.js';
 import { OnlyRsis } from './stratigy/index.js'
 import { bot as TelegramBot } from "../lib/telegram.js";
-const { APIKEY, APISECRET, TOKEN_SLACK, CHANEL_SLACK,ID_CHAT_TELEGRAM } = ENV;
+const { API_KEY_BINANCE, API_SECRET_BINANCE, TOKEN_SLACK, CHANEL_SLACK, ID_CHAT_TELEGRAM } = ENV;
 //console.info(await Binance.futuresCandles({ symbol: 'BTCUSDT' }));
 const { SMA, EMA, BollingerBands, RSI, StochasticRSI } = Technicalindicators;
 
@@ -10,8 +10,8 @@ export default class DenoBot {
         this._stratigy = "onlyRsis"
         //
         this.binance = BinanceApi({
-            apiKey: APIKEY,
-            apiSecret: APISECRET,
+            apiKey: API_KEY_BINANCE,
+            apiSecret: API_SECRET_BINANCE,
             useServerTime: true,
             test: true
         });
@@ -27,8 +27,8 @@ export default class DenoBot {
             text
         })
     }
-     postMessageTelegram(text) {
-       return  this.telegram.telegram.sendMessage({
+    postMessageTelegram(text) {
+        return this.telegram.telegram.sendMessage({
             chat_id: ID_CHAT_TELEGRAM,
             text,
         })

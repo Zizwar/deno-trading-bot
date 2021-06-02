@@ -1,4 +1,6 @@
 import DenoBot from './wino/denoBot.js';
+import { ENV } from './deps.js';
+const { INTERVAL_TIME = 1 } = ENV;
 
 const denoBot = new DenoBot();
 const ping = await denoBot.ping;
@@ -22,23 +24,22 @@ setInterval(async _ => {
                 close,
                 stratigy
             } = listenMyCoins;
-            denoBot.postMessageTelegram(`
-            ${action === "Buy" ? "⤴️" : "⤵️"} action=${action}\n
-            symbol=${symbol}\n
-            price=${close}\n
-            rsi=${rsi}\n
-            stochRSI=${stochRSI}\n
-            sma=${sma}\n
-            ema=${ema}\n 
-            stratigy=${stratigy}\n
-           `)
+            const message = `
+            ${action === "Buy" ? "⤴️" : "⤵️"} action=${action}
+            symbol=${symbol}
+            price=${close}
+            rsi=${rsi}
+            stochRSI=${stochRSI}
+            sma=${sma}
+            ema=${ema} 
+            stratigy=${stratigy}
+           `
+            denoBot.postMessageTelegram(message)
         } catch (error) {
             console.error(error)
         }
-
-
     }
     // denoBot.postMessageSlacK(action)
     console.log({ action, ...listenMyCoins })
-}, 7000)
+}, INTERVAL_TIME * 1000)
 
