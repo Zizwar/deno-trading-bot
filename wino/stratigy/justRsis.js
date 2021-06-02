@@ -31,6 +31,6 @@ export const OnlyRsis = (args = []) => {
         action = "Buy";
         return action;
     }
-    // action = "titti";
-    return "wait...";
+    action = false;
+    return action;
 }
