@@ -9,8 +9,7 @@ deno trading bot
 git clone https://github.com/Zizwar/deno-trad-bot.git 
 ```
 
-3- rename file .env.exemple to .env 
-   set  
+3- rename file .env.exemple to .env and set  
 ```sh 
 TOKEN_TELEGRAM = 
 ID_TELEGRAM = 
