@@ -24,16 +24,17 @@ setInterval(async _ => {
                 close,
                 stratigy
             } = listenMyCoins;
+            const tfx = (val) => parseFloat(val).toFixed(5)
             const message = `
-            ${action === "Buy" ? "⤴️" : "⤵️"} action=${action}
-            symbol=${symbol}
-            price=${close}
-            rsi=${rsi}
-            stochRSI=${stochRSI}
-            sma=${sma}
-            ema=${ema} 
-            stratigy=${stratigy}
-           `
+${action === "Buy" ? "⤴️" : "⤵️"} action=${action}
+symbol=${symbol}
+price=${close}
+rsi=${rsi}
+stochRSI=${tfx(stochRSI)}
+sma=${tfx(sma)}
+ema=${tfx(ema)} 
+stratigy=${stratigy}
+`;
             denoBot.postMessageTelegram(message)
         } catch (error) {
             console.error(error)
