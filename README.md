@@ -2,8 +2,6 @@
 # deno-trade-bot
 deno trading bot
 
-# cityMaps by Dndoon
-
 1- https://deno.land/#installation
 
 2- clone: 
@@ -14,14 +12,14 @@ git clone https://github.com/Zizwar/deno-trad-bot.git
 3- rename file .env.exemple to .env 
    set  
 ```sh 
-    TOKEN_TELEGRAM = 
-    ID_TELEGRAM = 
-    TOKEN_SLACK =
-    SHANEL_SLACK =
-    API_KEY_BINANCE = 
-    API_SECRET_BINANCE = 
-    INTERVAL_TIME = 
-```sh 
+TOKEN_TELEGRAM = 
+ID_TELEGRAM = 
+TOKEN_SLACK =
+SHANEL_SLACK =
+API_KEY_BINANCE = 
+API_SECRET_BINANCE = 
+INTERVAL_TIME = 
+```
 
 4- run in terminal
 ```sh
