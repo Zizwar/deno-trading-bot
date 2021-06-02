@@ -7,7 +7,7 @@ const ping = await denoBot.ping;
 denoBot.stratigy = "onlyRsis"
 setInterval(async _ => {
     const options = {
-        candeles: { symbol: "DOGEUSDT" }
+        candeles: { symbol: "DOGEUSDT",inerval:"5m"}
     }
     const listenMyCoins = await denoBot.listenCoins(options);
     const action = denoBot.action(listenMyCoins);
