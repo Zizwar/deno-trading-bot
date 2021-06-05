@@ -14,10 +14,10 @@ export const OnlyRsis = (args = []) => {
         // close >= upper &&
         rsi > 65
         && stochRSI > 70
-        && action !== "Sell"
+        && action !== "SELL"
     ) {
         //if (close >= upper && close < ema)   
-        action = "Sell";
+        action = "SELL";
         return action;
     }
 
@@ -26,9 +26,9 @@ export const OnlyRsis = (args = []) => {
         //  close <= lower &&
         rsi < 45
         && stochRSI < 30
-        && action !== "Buy"
+        && action !== "BUY"
     ) {
-        action = "Buy";
+        action = "BUY";
         return action;
     }
     action = false;

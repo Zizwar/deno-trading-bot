@@ -21,7 +21,7 @@ export default class DenoBot {
     }
     async getBalance(symbol = "USDT") {
         const balancFutures = await this._binance.futuresAccountBalance();
-        return +balancFutures?.find(({ asset }) => asset === symbol).balance || [];
+        return +balancFutures?.find(({ asset }) => asset === symbol)?.balance || [];
     }
     postMessageSlacK(text) {
         this.slack.chat.postMessage({
