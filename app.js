@@ -1,13 +1,22 @@
-import DenoBot from './wino/denoBot.js';
+import DenoBot from './mod.js';
 import { ENV } from './deps.js';
 const { INTERVAL_TIME = 1 } = ENV;
 
 const denoBot = new DenoBot();
 const ping = await denoBot.ping;
-denoBot.stratigy = "onlyRsis"
+denoBot.stratigy = "onlyRsis";
+//const balanceUSDT = await denoBot.getBalance("USDT");
+//const balanceBUSD = await denoBot.getBalance("BUSD");
+//console.info({balanceUSDT,balanceBUSD})
+console.info(await denoBot.binance.futuresLeverage({
+    symbol: 'BTCBUSD',
+    leverage: 5,
+}))
+//console.log(await denoBot.binance.withdrawHistory())
+/*
 setInterval(async _ => {
     const options = {
-        candeles: { symbol: "DOGEUSDT" }
+        candeles: { symbol: "DOGEUSDT",interval:"3m" }
     }
     const listenMyCoins = await denoBot.listenCoins(options);
     const action = denoBot.action(listenMyCoins);
@@ -32,7 +41,7 @@ price=${close}
 rsi=${rsi}
 stochRSI=${tfx(stochRSI)}
 sma=${tfx(sma)}
-ema=${tfx(ema)} 
+ema=${tfx(ema)}
 stratigy=${stratigy}
 `;
             denoBot.postMessageTelegram(message)
@@ -43,4 +52,6 @@ stratigy=${stratigy}
     // denoBot.postMessageSlacK(action)
     console.log({ action, ...listenMyCoins })
 }, INTERVAL_TIME * 1000)
+
+//*/
 

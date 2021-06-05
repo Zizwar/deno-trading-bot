@@ -2,7 +2,7 @@ image:
   file: .gitpod.Dockerfile
 tasks:
   - init: ''
-    command: 'echo "Start Project Deno Trad Bot"'
+    command: 'echo "Start Project Deno Trading Bot: deno run --allow-net --allow-env --allow-read app.js"'
 
 vscode:
   extensions:

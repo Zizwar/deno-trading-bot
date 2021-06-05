@@ -9,7 +9,7 @@ export default class DenoBot {
     constructor() {
         this._stratigy = "onlyRsis"
         //
-        this.binance = BinanceApi({
+        this._binance = BinanceApi({
             apiKey: API_KEY_BINANCE,
             apiSecret: API_SECRET_BINANCE,
             useServerTime: true,
@@ -17,9 +17,11 @@ export default class DenoBot {
         });
         //
         this.slack = new SlackApi(TOKEN_SLACK)
-        this.telegram = TelegramBot
-
-
+        this.telegramBot = TelegramBot
+    }
+    async getBalance(symbol = "USDT") {
+        const balancFutures = await this._binance.futuresAccountBalance();
+        return +balancFutures?.find(({ asset }) => asset === symbol).balance || [];
     }
     postMessageSlacK(text) {
         this.slack.chat.postMessage({
@@ -28,17 +30,22 @@ export default class DenoBot {
         })
     }
     postMessageTelegram(text) {
-        return this.telegram.telegram.sendMessage({
+        return this.telegramBot.telegram.sendMessage({
             chat_id: ID_CHAT_TELEGRAM,
             text,
         })
     }
+    //deno binance api from node-binance-api
     get ping() {
-        return this.binance.time()
+        return this._binance.futuresPing()
     }
+    get binance() {
+        return this._binance;
+    }
+
     futuresCandles(args = []) {
         const { symbol = "BTCUSDT", interval = '1m', limit = 30 } = args
-        return this.binance.futuresCandles({ symbol, interval, limit })
+        return this._binance.futuresCandles({ symbol, interval, limit })
     }
 
     async listenCoins(args = []) {
