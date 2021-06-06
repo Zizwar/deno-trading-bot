@@ -4,7 +4,7 @@ const { INTERVAL_TIME = 1 } = ENV;
 
 const denoBot = new DenoBot();
 const ping = await denoBot.ping;
-console.log("isDenoBotConectToFutures="+ping ? "yes :)":"no :(")
+console.log("isDenoBotConectToFutures=" + ping ? "conect denoBot :)" : "no conect denoBot :(")
 denoBot.stratigy = "onlyRsis";
 //const balanceUSDT = await denoBot.getBalance("USDT");
 //const balanceBUSD = await denoBot.getBalance("BUSD");
@@ -46,10 +46,10 @@ console.info(
 )
 */
 //console.log(await denoBot.binance.withdrawHistory())
-/*
-setInterval(async _ => {
+///*
+const  _thisInterval = setInterval(async _ => {
     const options = {
-        candeles: { symbol: "DOGEUSDT",interval:"3m" }
+        candeles: { symbol: "DOGEUSDT", interval: "5m" }
     }
     const listenMyCoins = await denoBot.listenCoins(options);
     const action = denoBot.action(listenMyCoins);
@@ -82,8 +82,14 @@ stratigy=${stratigy}
             console.error(error)
         }
     }
+    const dataConnect = denoBot.dataConnect
+    console.log({ action, dataConnect})
+if(dataConnect==="stop"){
+clearInterval(_thisInterval)
+console.warn('Stop  Deno Bot')
+}
     // denoBot.postMessageSlacK(action)
-    console.log({ action, ...listenMyCoins })
+    //console.log({ action, ...listenMyCoins })
 }, INTERVAL_TIME * 1000)
 
 //*/

@@ -1,6 +1,6 @@
 import { BinanceApi, Technicalindicators, SlackApi, ENV } from '../deps.js';
 import { OnlyRsis } from './stratigy/index.js'
-import { bot as TelegramBot } from "../lib/telegram.js";
+import TelegramBot from "../lib/telegram.js";
 const { API_KEY_BINANCE, API_SECRET_BINANCE, TOKEN_SLACK, CHANEL_SLACK, ID_CHAT_TELEGRAM } = ENV;
 //console.info(await Binance.futuresCandles({ symbol: 'BTCUSDT' }));
 const { SMA, EMA, BollingerBands, RSI, StochasticRSI } = Technicalindicators;
@@ -16,8 +16,10 @@ export default class DenoBot {
             test: true
         });
         //
-        this.slack = new SlackApi(TOKEN_SLACK)
-        this.telegramBot = TelegramBot
+        this.slack = new SlackApi(TOKEN_SLACK);
+        this._dataConnect = [];
+        this._telegramBot = TelegramBot(this);
+        
     }
     async getBalance(symbol = "USDT") {
         const balancFutures = await this._binance.futuresAccountBalance();
@@ -30,7 +32,7 @@ export default class DenoBot {
         })
     }
     postMessageTelegram(text) {
-        return this.telegramBot.telegram.sendMessage({
+        return this._telegramBot.telegram.sendMessage({
             chat_id: ID_CHAT_TELEGRAM,
             text,
         })
@@ -44,7 +46,7 @@ export default class DenoBot {
     }
 
     futuresCandles(args = []) {
-        const { symbol = "BTCUSDT", interval = '1m', limit = 30 } = args
+        const { symbol = "BTCUSDT", interval = '5m', limit = 30 } = args
         return this._binance.futuresCandles({ symbol, interval, limit })
     }
 
@@ -115,6 +117,12 @@ export default class DenoBot {
     }
     get stratigy() {
         return this._stratigy
+    }
+    set dataConnect(_dataConnect) {
+        this.__dataConnect = _dataConnect
+    }
+    get dataConnect() {
+        return this.__dataConnect
     }
     action(properties) {
         switch (this._stratigy) {
