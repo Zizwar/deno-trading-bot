@@ -20,11 +20,15 @@ API_KEY_BINANCE =
 API_SECRET_BINANCE = 
 INTERVAL_TIME = 
 ```
-
-4 - RUN
+## test
  - in terminal
 ```sh
-$ deno run --allow-net --allow-env --allow-read app.js
+$ deno test --allow-net --allow-env --allow-read 
+```
+## run
+ - in terminal
+```sh
+$ deno run --allow-net --allow-env --allow-read main.js
 ```
  - in docker 
  ```sh
