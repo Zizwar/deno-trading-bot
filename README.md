@@ -21,9 +21,14 @@ API_SECRET_BINANCE =
 INTERVAL_TIME = 
 ```
 
-4- run in terminal
+4 - RUN
+ - in terminal
 ```sh
-deno run --allow-net --allow-env --allow-read app.js
+$ deno run --allow-net --allow-env --allow-read app.js
+```
+ - in docker 
+ ```sh
+$ docker build -t app . && docker run -it --init -p 1993:1993 app
 ```
 ## exemple
 

@@ -4,6 +4,7 @@ const { INTERVAL_TIME = 1 } = ENV;
 
 const denoBot = new DenoBot();
 const ping = await denoBot.ping;
+console.log("isDenoBotConectToFutures="+ping ? "yes :)":"no :(")
 denoBot.stratigy = "onlyRsis";
 //const balanceUSDT = await denoBot.getBalance("USDT");
 //const balanceBUSD = await denoBot.getBalance("BUSD");
@@ -29,7 +30,7 @@ const tfx = (val) => +parseFloat(val).toFixed(5)
 
 
 const quantity = 0.3
-
+/*
 console.info(
     await denoBot.binance.futuresOrder({
         type: 'TAKE_PROFIT',
@@ -43,7 +44,7 @@ console.info(
         //activatePrice: 0.001 - 0.001 * 0.2,
     }).catch(console.error)
 )
-
+*/
 //console.log(await denoBot.binance.withdrawHistory())
 /*
 setInterval(async _ => {
