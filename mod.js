@@ -1,2 +1,2 @@
-import denoBot from './wino/denoBot.js';
+import denoBot from './src/denoBot.js';
 export default denoBot
