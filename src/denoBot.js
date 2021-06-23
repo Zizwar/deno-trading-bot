@@ -1,13 +1,14 @@
 import { BinanceApi, Technicalindicators, SlackApi, ENV } from '../deps.js';
-import { OnlyRsis } from './stratigy/index.js'
+import * as Stratigy from './stratigy/index.js'
 import TelegramBot from "../lib/telegram.js";
 const { API_KEY_BINANCE, API_SECRET_BINANCE, TOKEN_SLACK, CHANEL_SLACK, ID_CHAT_TELEGRAM } = ENV;
 //console.info(await Binance.futuresCandles({ symbol: 'BTCUSDT' }));
 const { SMA, EMA, BollingerBands, RSI, StochasticRSI } = Technicalindicators;
 
 export default class DenoBot {
-    constructor() {
-        this._stratigy = "onlyRsis"
+    constructor(props) {
+        const { API_KEY_BINANCE, API_SECRET_BINANCE, TOKEN_SLACK, CHANEL_SLACK, ID_CHAT_TELEGRAM } = props || ENV;
+        this._stratigy = "OnlyRsis";
         //
         this._binance = BinanceApi({
             apiKey: API_KEY_BINANCE,
@@ -79,7 +80,7 @@ export default class DenoBot {
             const lastArr = (val) => val?.slice(-1)[0] || []
             const lowerAndUpperPriceBB = BB?.slice(-1) || [];
 
-            console.info(lowerAndUpperPriceBB)
+            //console.info(lowerAndUpperPriceBB)
             const [{ upper = NaN, lower = NaN }] = lowerAndUpperPriceBB;
             const { stochRSI } = lastArr(_stochRSI) || NaN;
             const { symbol } = optionCandeles;
@@ -125,14 +126,7 @@ export default class DenoBot {
         return this.__dataConnect
     }
     action(properties) {
-        switch (this._stratigy) {
-            case "onlyRsis": return OnlyRsis(properties);
-                break;
-            case "9mr": return OnlyRsis(properties);
-                break;
-            default: return OnlyRsis(properties);
-                break;
-        }
+        return Stratigy[this._stratigy](properties)
     }
 }
 

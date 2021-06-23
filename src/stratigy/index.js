@@ -1,1 +1,2 @@
-export * from './justRsis.js'
+export * from './justRsis.js';
+export * from './ema.js'

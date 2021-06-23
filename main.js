@@ -5,7 +5,7 @@ const { INTERVAL_TIME = 1 } = ENV;
 const denoBot = new DenoBot();
 const ping = await denoBot.ping;
 console.log("isDenoBotConectToFutures=" + ping ? "conect denoBot :)" : "no conect denoBot :(")
-denoBot.stratigy = "onlyRsis";
+denoBot.stratigy = "OnlyRsis";
 //const balanceUSDT = await denoBot.getBalance("USDT");
 //const balanceBUSD = await denoBot.getBalance("BUSD");
 //console.info({balanceUSDT,balanceBUSD})
@@ -68,7 +68,7 @@ const  _thisInterval = setInterval(async _ => {
             } = listenMyCoins;
             const tfx = (val) => parseFloat(val).toFixed(5)
             const message = `
-${action === "Buy" ? "⤴️" : "⤵️"} action=${action}
+${action === "BUY" ? "⤴️" : "⤵️"} action=${action}
 symbol=${symbol}
 price=${close}
 rsi=${rsi}
@@ -90,7 +90,7 @@ console.warn('Stop  Deno Bot')
 }
     // denoBot.postMessageSlacK(action)
     //console.log({ action, ...listenMyCoins })
-}, INTERVAL_TIME * 1000)
+}, INTERVAL_TIME * 5000)
 
 //*/
 
