@@ -47,27 +47,28 @@ console.info(
 */
 //console.log(await denoBot.binance.withdrawHistory())
 ///*
-const  _thisInterval = setInterval(async _ => {
-    const options = {
-        candeles: { symbol: "DOGEUSDT", interval: "5m" }
-    }
-    const listenMyCoins = await denoBot.listenCoins(options);
-    const action = denoBot.action(listenMyCoins);
-    if (action) {
-        try {
-            const {
-                symbol,
-                rsi,
-                stochRSI,
-                sma,
-                ema,
-                upper,
-                lower,
-                close,
-                stratigy
-            } = listenMyCoins;
-            const tfx = (val) => parseFloat(val).toFixed(5)
-            const message = `
+function startDenoBot() {
+    const _thisInterval = setInterval(async _ => {
+        const options = {
+            candeles: { symbol: "DOGEUSDT", interval: "5m" }
+        }
+        const listenMyCoins = await denoBot.listenCoins(options);
+        const action = denoBot.action(listenMyCoins);
+        if (action) {
+            try {
+                const {
+                    symbol,
+                    rsi,
+                    stochRSI,
+                    sma,
+                    ema,
+                    upper,
+                    lower,
+                    close,
+                    stratigy
+                } = listenMyCoins;
+                const tfx = (val) => parseFloat(val).toFixed(5)
+                const message = `
 ${action === "BUY" ? "⤴️" : "⤵️"} action=${action}
 symbol=${symbol}
 price=${close}
@@ -77,20 +78,28 @@ sma=${tfx(sma)}
 ema=${tfx(ema)}
 stratigy=${stratigy}
 `;
-            denoBot.postMessageTelegram(message)
-        } catch (error) {
-            console.error(error)
+                denoBot.postMessageTelegram(message)
+            } catch (error) {
+                console.error(error)
+            }
         }
-    }
-    const dataConnect = denoBot.dataConnect
-    console.log({ action, dataConnect})
-if(dataConnect==="stop"){
-clearInterval(_thisInterval)
-console.warn('Stop  Deno Bot')
+        const dataConnect = denoBot.dataConnect
+        console.log({ action, dataConnect })
+        if (dataConnect === "stop") {
+            clearInterval(_thisInterval)
+            console.warn('Stop  Deno Bot')
+        }
+        if (dataConnect === "play") {
+            clearInterval(_thisInterval)
+            startDenoBot();
+            console.warn('Play  Deno Bot')
+        } 
+        //reset value
+        denoBot.dataConnect = null;
+        // denoBot.postMessageSlacK(action)
+        //console.log({ action, ...listenMyCoins })
+    }, INTERVAL_TIME * 5000)
 }
-    // denoBot.postMessageSlacK(action)
-    //console.log({ action, ...listenMyCoins })
-}, INTERVAL_TIME * 5000)
-
+startDenoBot();
 //*/
 
