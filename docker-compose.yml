@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    container_name: deno-trading-bot
+    ports:
+      - "8000:8000"
