@@ -2,6 +2,8 @@ version: '3'
 
 services:
   web:
+    environment:
+      - source .env
     build: .
     container_name: deno-trading-bot
     ports:
