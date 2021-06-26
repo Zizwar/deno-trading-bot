@@ -1,7 +1,7 @@
-FROM denoland/deno:1.10.3
+FROM hayd/deno:latest
 
 # port listens to.
-EXPOSE 1993
+EXPOSE 8000
 
 WORKDIR /app
 
