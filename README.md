@@ -84,10 +84,14 @@ stratigy=${stratigy}
 }, INTERVAL_TIME * 1000)
 ```
 ##  Screens
+Telegram 
+
+![Console log](https://raw.githubusercontent.com/Zizwar/deno-trading-bot/main/screens/telegram.jpg)
+
 Console
 ![Console log](https://raw.githubusercontent.com/Zizwar/deno-trading-bot/main/screens/denolog.jpg)
 
-Telegram
+notif
 ![Telegram](https://raw.githubusercontent.com/Zizwar/deno-trading-bot/main/screens/denobottelegram.jpg)
 ##  API (Incoming)
 https://ibrahim.click
