@@ -83,5 +83,11 @@ stratigy=${stratigy}
     console.log({ action, ...listenMyCoins })
 }, INTERVAL_TIME * 1000)
 ```
+##  Screens
+Console
+![Console log](https://raw.githubusercontent.com/Zizwar/deno-trading-bot/main/screens/denolog.jpg)
+
+Telegram
+![Telegram](https://raw.githubusercontent.com/Zizwar/deno-trading-bot/main/screens/denobottelegram.jpg)
 ##  API (Incoming)
-https://ibrahim.contact
+https://ibrahim.click
