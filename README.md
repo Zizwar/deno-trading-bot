@@ -94,4 +94,4 @@ Console
 notif
 ![Telegram](https://raw.githubusercontent.com/Zizwar/deno-trading-bot/main/screens/denobottelegram.jpg)
 ##  API (Incoming)
-https://ibrahim.click
+https://brah.im
